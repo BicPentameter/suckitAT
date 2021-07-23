@@ -1,7 +1,7 @@
 import keyboard
 import time
 
-
+should_run_main_loop = True
 dotdashthreshhold = 0.3
 endchartime = 1.5
 shorttermstring = ""
@@ -60,6 +60,8 @@ keyboard.wait("b")
 print("so close! press 'v' to start \n")
 keyboard.wait('v')
 
+
+
 print("aedan had the idea to run a calibration before you start, so i decided to rip him off. press spacebar for the length of a . \n")
 keyboard.wait('space')
 instant = time.time()
@@ -72,29 +74,30 @@ endchartime = 3 * ultimateunit
 dotdashthreshhold = 3 * ultimateunit
 
 
+
 print("now you're started, as soon as you press spacebar the morse detection will begin \n")
+
+
 
 keyboard.wait("space")
 instant = time.time()
 
 while True:  # making a loop
-    if keyboard.is_pressed('esc'):
-        break
     while keyboard.is_pressed("space"):
-        time.sleep(.000001)
+        time.sleep(.001)
         #space is released
-    if not keyboard.is_pressed("space"):
-        #counts the amount of time since the last snap
-        length = time.time() - instant
-        if length < dotdashthreshhold:
-            shorttermstring += "."
-        else:
-            shorttermstring += "-"
-        print(shorttermstring)
-        instant = time.time()
+    
+    #counts the amount of time since the last snap
+    length = time.time() - instant
+    if length < dotdashthreshhold:
+        shorttermstring += "."
+    else:
+        shorttermstring += "-"
+    print(shorttermstring)
+    instant = time.time()
 
-    keyboard.wait("space")
-        #space is pressed
+    keyboard.wait('space')
+
     if keyboard.is_pressed("space"):
         #counts the amount of time since the last snap
         length = time.time() - instant
